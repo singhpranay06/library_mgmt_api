@@ -47,7 +47,6 @@ This will execute the test cases that validate the API routes and functionality,
 
 Run the app:
 
-    ```bash
     python main.py
 
 # Design Choices
@@ -67,7 +66,7 @@ Run the app:
 # Assumptions:
 - **No external database:** The system is using in-memory data storage (i.e., lists) for simplicity. All data is lost when the application stops. In a production system a robust DBMS is required.
 - **No UI:** This project focuses solely on the API backend. There is no graphical user interface (UI), and users will interact with the system through API requests (e.g., via Postman or curl).
-- **Data types and format:** The API assumes general data types reuired by the entities of a library. There is minimal input validation, so invalid data may lead to unexpected behavior.
+- **Data types and format:** The API assumes general data types reuired by the entities of a library. There is minimal input validation, so invalid data may lead to unexpected behaviour.
 
 # Limitations:
 - **In-memory storage:** Since there is no database, the data is not permanent. Upon restarting the server, all books and members will be lost.
