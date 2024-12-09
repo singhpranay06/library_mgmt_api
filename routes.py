@@ -15,7 +15,7 @@ def create_book():
     data = request.get_json()
     book = Book(id=len(books) + 1, **data)
     books.append(book)
-    return jsonify({'message': 'Book created successfully'}), 201
+    return jsonify({'message': 'Book created successfully', 'id': book.id}), 201  
 
 @book_routes.route('/books', methods=['GET'])
 def get_books():
@@ -55,7 +55,7 @@ def create_member():
     data = request.get_json()
     member = Member(id=len(members) + 1, **data)
     members.append(member)
-    return jsonify({'message': 'Member created successfully'}), 201
+    return jsonify({'message': 'Member created successfully', 'id': member.id}), 201
 
 @member_routes.route('/members', methods=['GET'])
 def get_members():
@@ -86,21 +86,11 @@ def delete_member(id):
     return jsonify({'message': 'Member deleted successfully'})
 
 
-# Bonus Features@book_routes.route('/books/search', methods=['GET'])
+# Bonus Features
+@book_routes.route('/books/search', methods=['GET'])
 def search_books():
     title = request.args.get('title', '')
     author = request.args.get('author', '')
     
-    filtered_books = [book for book in books if title.lower() in book.title.lower() and author.lower() in book.author.lower()]
+    filtered_books = [book for book in books if title.lower() in book.title.lower() or author.lower() in book.author.lower()]
     return jsonify([book.__dict__ for book in filtered_books])
-
-
-@book_routes.route('/books', methods=['GET'])
-def get_books_paginated():
-    page = int(request.args.get('page', 1))
-    limit = int(request.args.get('limit', 10))
-    start = (page - 1) * limit
-    end = start + limit
-    paginated_books = books[start:end]
-    return jsonify([book.__dict__ for book in paginated_books])
-
